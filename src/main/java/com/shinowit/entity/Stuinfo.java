@@ -4,6 +4,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 /**
  * Created by Administrator on 2014/12/16.
@@ -18,6 +19,7 @@ public class Stuinfo {
 
     @Id
     @Column(name = "stuid")
+    //@Size(min = 1,message = "必须是数字")
     public int getStuid() {
         return stuid;
     }
@@ -28,6 +30,7 @@ public class Stuinfo {
 
     @Basic
     @Column(name = "stuname")
+    @Size(min = 1,max = 3,message = "{stu.stuname.invalid}")
     public String getStuname() {
         return stuname;
     }

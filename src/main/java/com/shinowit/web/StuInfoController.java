@@ -36,5 +36,4 @@ public class StuInfoController {
         return stuinfoDao.listAll(Stuinfo.class);
     }
 
-
 }

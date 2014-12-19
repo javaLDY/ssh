@@ -12,6 +12,6 @@
     <title></title>
 </head>
 <body>
-${name}
+${stuinfo.stuname}
 </body>
 </html>
