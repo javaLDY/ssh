@@ -1,9 +1,7 @@
 package com.shinowit.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -12,14 +10,13 @@ import javax.validation.constraints.Size;
 @Entity
 public class Stuinfo {
     private int stuid;
-    private int stucode;
+    private String stucode;
     private String stuname;
-    private boolean success;
-    private String message;
+    private SexCode sexCode;
 
     @Id
     @Column(name = "stuid")
-    //@Size(min = 1,message = "必须是数字")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getStuid() {
         return stuid;
     }
@@ -29,8 +26,19 @@ public class Stuinfo {
     }
 
     @Basic
+    @Column(name="stucode")
+    @Size(min = 3,max = 10,message = "{stu.stucode.invalid}")
+    public String getStucode() {
+        return stucode;
+    }
+
+    public void setStucode(String stucode) {
+        this.stucode = stucode;
+    }
+
+    @Basic
     @Column(name = "stuname")
-    @Size(min = 1,max = 3,message = "{stu.stuname.invalid}")
+    @Size(min = 3,max = 10,message = "{stu.stuname.invalid}")
     public String getStuname() {
         return stuname;
     }
@@ -39,27 +47,15 @@ public class Stuinfo {
         this.stuname = stuname;
     }
 
-    public boolean isSuccess() {
-        return success;
+    @OneToOne
+    @JoinColumn(name = "sexcode")
+    @NotNull(message = "性别不能为空")
+    public SexCode getSexCode() {
+        return sexCode;
     }
 
-    public int getStucode() {
-        return stucode;
-    }
-
-    public void setStucode(int stucode) {
-        this.stucode = stucode;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setSexCode(SexCode sexCode) {
+        this.sexCode = sexCode;
     }
 }
+
