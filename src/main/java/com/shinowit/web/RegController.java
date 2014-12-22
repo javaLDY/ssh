@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.swing.plaf.basic.BasicEditorPaneUI;
@@ -41,10 +42,11 @@ public class RegController {
         return "/stuinfo/reg";
     }
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String save(@Valid @ModelAttribute("stu") Stuinfo stuinfo,BindingResult bindingResult){
+    public String save(@Valid @ModelAttribute("stu") Stuinfo stuinfo,BindingResult bindingResult,RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
-            return "/stuinfo/reg";
-            //return "redirect:show";//有问题想问为什么直接跳这个访问路径就不行呢//并且这么写是行了但是我的错误消息怎么什么也没有出难道非得是返回真正的jsp的路径
+            //return "/stuinfo/reg";
+            redirectAttributes.addFlashAttribute("stuname","用户名不能为空");
+            return "redirect:/reg/show";//有问题想问为什么直接跳这个访问路径就不行呢//并且这么写是行了但是我的错误消息怎么什么也没有出难道非得是返回真正的jsp的路径
             //return "reg/show";//这里到底反的是什么，还有刚刚我就是这么写的为什么各种尝试都不行然后我就把数据库数据删了一把就什么都行了
         }else{
             List<Stuinfo> stuinfolist = stubasedao.listAll(Stuinfo.class);
@@ -60,7 +62,7 @@ public class RegController {
 //            }
             Object a = stubasedao.insert(stuinfo);
             if(a!=null) {
-                return "/stuinfo/login";
+                return "/stuinfo/login2";
             }
         }
         return "/stuinfo/reg";
