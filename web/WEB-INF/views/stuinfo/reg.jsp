@@ -19,6 +19,7 @@
 </head>
 <body>
 <form:form action="${ctx}/reg/save" method="post" modelAttribute="stu">
+    ${stuname}
     <%--<label>姓名</label><form:input path="stuname"></form:input>--%>
     <label>姓名</label><form:input path="stuname"></form:input><form:errors path="stuname" cssClass="aa"></form:errors>
     <label>密码</label><form:password path="stucode"></form:password><form:errors path="stucode" cssClass="aa"></form:errors>
