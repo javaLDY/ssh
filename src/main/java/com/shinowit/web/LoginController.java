@@ -27,7 +27,7 @@ public class LoginController {
     @Resource
     private BaseDao<Stuinfo> baseDao;
 
-    @RequestMapping(value = "/show",method = RequestMethod.GET)
+    @RequestMapping(value = "/showlogin",method = RequestMethod.GET)
     public String show(@ModelAttribute("stu") Stuinfo stuinfo,String checknum){
         return "/stuinfo/login2";
     }
@@ -45,6 +45,7 @@ public class LoginController {
                 if(stulist.size()>0){
                     request.getSession().setAttribute("msg","登陆成功");
                     request.getSession().setAttribute("msgname",stuinfo.getStuname());
+                    request.getSession().setAttribute("status",true);
                     return "forward:/index/show";
                 }else{
                     bindingResult.rejectValue("stuname",null,"用户名或者密码有错误!");
